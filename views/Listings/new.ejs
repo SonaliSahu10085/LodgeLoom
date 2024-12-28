@@ -1,28 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BookMyStay</title>
-  </head>
-  <body>
-    <h3>Creat New Listing!</h3>
-    <form method="POST" action="/listings">
-      <input type="text" name="title" placeholder="Enter Title" /><br /><br />
-      <textarea name="description" placeholder="Enter Description"></textarea
-      ><br /><br />
-      <input type="number" name="price" placeholder="Enter Price" /><br /><br />
-      <input
-        type="text"
-        name="location"
-        placeholder="Enter Location"
-      /><br /><br />
-      <input
-        type="text"
-        name="country"
-        placeholder="Enter Country"
-      /><br /><br />
-      <button type="submit">Create</button>
-    </form>
-  </body>
-</html>
+<%- layout('/layouts/boilerplate') -%>
+<body>
+  <div class="row">
+    <!-- offset to make form center -->
+    <div class="col-8 offset-2 my-4">
+      <h3>Create New Listing</h3>
+      <form method="POST" action="/listings">
+        <div class="mb-4">
+          <label for="" class="form-label fw-medium">Title</label>
+          <input
+            type="text"
+            name="title"
+            placeholder="Enter Title"
+            class="form-control custom-greenish-bg"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="image">Image</label>
+          <input
+            type="text"
+            name="image"
+            placeholder="Enter Image URL/Link"
+            class="form-control custom-greenish-bg"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="description">Description</label>
+          <textarea
+            name="description"
+            placeholder="Enter Description"
+            class="form-control custom-greenish-bg"
+            style="resize: none !important"
+          ></textarea>
+        </div>
+        
+        <div class="row">
+          <!-- for md or above md 4:8 ratio -->
+          <div class="mb-4 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input
+              type="number"
+              name="price"
+              placeholder="Enter Price"
+              class="form-control custom-greenish-bg"
+            />
+          </div>
+          
+          <div class="mb-4 col-md-8
+          ">
+            <label for="location" class="form-label">Location</label>
+            <input
+              type="text"
+              name="location"
+              placeholder="Enter Location"
+              class="form-control custom-greenish-bg"
+            />
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="country" class="form-label">Country</label>
+          <input
+            type="text"
+            name="country"
+            placeholder="Enter Country"
+            class="form-control custom-greenish-bg"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-dark green-btn" 
+        >
+          Add
+        </button>
+      </form>
+    </div>
+  </div>
+</body>

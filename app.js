@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -15,6 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
 
 (async function () {
   await mongoose.connect("mongodb://127.0.0.1:27017/bookmystay");

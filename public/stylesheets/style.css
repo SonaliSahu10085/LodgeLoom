@@ -1,8 +1,70 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+body{
+  font-family: "Plus Jakarta Sans", serif !important;
+  /* font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal; */
+  display: flex;
+  flex-direction: column;
+  /* to make navbar stick at the bottom */
 }
 
-a {
-  color: #00B7FF;
+.green-btn{
+  height: 2.35rem;
+  background-color: #1c9493 !important; 
+  border: none !important;
+}
+
+.green-btn:hover{
+ background-color: #177b79 !important;
+}
+
+.container{
+  flex: 1;
+}
+.navbar{
+  height: 5rem;
+}
+
+.navbar-logo{
+  width: 50px;
+}
+
+
+.f-info-links a{
+  text-decoration: none;
+  color: white;
+  margin-right: 0.5rem;
+}
+.f-info-links a:hover{
+  text-decoration: underline;
+}
+
+/* for card */
+.f-card{
+  opacity: 1;
+}
+
+.f-card:hover{
+  opacity: 0.7;
+}
+
+/* for logo */
+.card-img-overlay{
+  /* transform: rotate(-15deg);  */
+  opacity: 0;
+}
+
+.card-img-overlay:hover{
+ opacity: 0.7;
+}
+
+/* to target input field border focus */
+.custom-greenish-bg:focus {
+  border-color: rgb(28, 148, 147) !important;    /* greensish border */
+  box-shadow: 0 0 0 0.25rem rgb(28, 148, 147, 0.35) !important; /* Yellow focus shadow */
+}
+
+.show-img{
+  height: 30vh;
 }
