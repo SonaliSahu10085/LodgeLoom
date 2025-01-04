@@ -1,22 +1,24 @@
 <%- layout('/layouts/boilerplate') -%>
-<body>
-  <h1>All Listings</h1>
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1">
-    <% for(let listing of listings){ %>
-      <a href="/listings/<%= listing._id %>" style="text-decoration: none;" class="f-card">
-        <div class="card h-100 p-4" style="width: 390px; border: none !important;">
-        <img src="<%= listing.image %>" class="card-img-top rounded-4" style="object-fit: cover; height: 12.5rem !important; " alt="<%= listing.title %>">
-        <div class="card-img-overlay d-flex justify-content-center align-items-center" ><span class="fs-5 text-white fw-bold">bookmystay.com</span></div>
-        <div class="card-body p-0">
-          <p class="card-text">
-            <b>
-              <%= listing.title %>
-            </b> <br>
-            <span class="fw-medium">&#8377;<%= listing.price.toLocaleString('en-IN') %>/night</span>
-          </p>
-        </div>
-      </div>
-    </a>
-      <% } %>
-  </div>
-</body>
+
+  <body>
+    <h1>All Listings</h1>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1">
+      <% for(let listing of listings){ %>
+        <a href="/listings/<%= listing._id %>" style="text-decoration: none;" class="f-card">
+          <div class="card col border-none my-2">
+            <img src="<%= listing.image %>" class="card-img-top rounded-4 img-h-20r" alt="<%= listing.title %>">
+            <div class="card-img-overlay d-flex justify-content-center align-items-center"><span
+                class="fs-4 text-white fw-bold">bookmystay.com</span></div>
+            <div class="card-body p-0">
+              <p class="card-text">
+                <b>
+                  <%= listing.title %>
+                </b> <br>
+                <span class="fw-medium">&#8377;<%= listing.price.toLocaleString('en-IN') %>/night</span>
+              </p>
+            </div>
+          </div>
+        </a>
+        <% } %>
+    </div>
+  </body>

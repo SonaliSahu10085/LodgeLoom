@@ -66,6 +66,10 @@ body{
   box-shadow: 0 0 0 0.25rem rgb(28, 148, 147, 0.35) !important; /* Yellow focus shadow */
 }
 
-.show-img{
-  height: 30vh;
+.border-none{
+  border: none !important;
+}
+
+.img-h-20r{
+  height: 20rem;
 }
