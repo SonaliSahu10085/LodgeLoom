@@ -61,7 +61,7 @@ body{
 }
 
 /* to target input field border focus */
-.custom-greenish-bg:focus {
+.border-shadow-green:focus {
   border-color: rgb(28, 148, 147) !important;    /* greensish border */
   box-shadow: 0 0 0 0.25rem rgb(28, 148, 147, 0.35) !important; /* Yellow focus shadow */
 }
@@ -72,4 +72,16 @@ body{
 
 .img-h-20r{
   height: 20rem;
+}
+
+.resize-none{
+  resize: none !important;
+}
+
+.border-green {
+  border-color: rgb(28, 148, 147) !important;
+}
+
+.border-green:hover{
+  background-color: rgb(28, 148, 147) !important;
 }

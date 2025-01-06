@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listings");
+const Review = require("../models/reviews");
 const wrapAsync = require("../utils/wrapAsync");
-const ExpressError = require("../utils/ExpressError");
-const validateListing = require('../utils/validateListing')
+
+const {validateListing, validateReview} = require("../utils/serverValidation");
 
 /* Index Route */
 router.get(
@@ -36,7 +37,7 @@ router.get(
   "/:id",
   wrapAsync(async (req, res, next) => {
     const { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("Listings/show", { listing });
   })
 );
@@ -47,13 +48,9 @@ router.put(
   validateListing,
   wrapAsync(async (req, res, next) => {
     const { id } = req.params;
-    // if (!req.body.listing) {
-    //   throw new ExpressError(400, "Send valid data for listing.");
-    // }
     const listing = await Listing.findByIdAndUpdate(id, {
       ...req.body.listing,
     });
-    // console.log(listing)
     res.redirect(`/listings/${id}`);
   })
 );
@@ -64,7 +61,6 @@ router.delete(
   wrapAsync(async (req, res, next) => {
     const { id } = req.params;
     const listing = await Listing.findByIdAndDelete(id);
-    // console.log(listing)
     res.redirect("/listings");
   })
 );
@@ -79,8 +75,30 @@ router.get(
   })
 );
 
-// router.use(function (err, req, res, next) {
-//   res.send("Some Server error.");
-// });
+/* Post Review Route */
+router.post(
+  "/:id/reviews",
+  validateReview,
+  wrapAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const newReview = new Review(req.body.review);
+    const listing = await Listing.findById(id);
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    res.redirect(`/listings/${id}`);
+  })
+);
+
+/* Delete Review Route */
+router.delete(
+  "/:id/reviews/:review_id",
+  wrapAsync(async (req, res, next) => {
+    const { id, review_id } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
+    await Review.findByIdAndDelete(review_id); 
+    res.redirect(`/listings/${id}`);
+  })
+);
 
 module.exports = router;

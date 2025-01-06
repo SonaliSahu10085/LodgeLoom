@@ -2,7 +2,7 @@
   <body>
     <div class="row">
       <!-- offset to make form center -->
-      <div class="col-lg-8 offset-lg-2 col-md-6 offset-md-3 col-12 mb-4">
+      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 mb-4">
         <h3 class="text-center">Edit Listing</h3>
         <!-- validation check -->
         <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
@@ -12,7 +12,7 @@
               type="text"
               name="listing[title]"
               value="<%= listing.title %>"
-              class="form-control custom-greenish-bg"
+              class="form-control border-shadow-green"
               required
             />
           </div>
@@ -22,7 +22,7 @@
               type="text"
               name="listing[image]"
               value="<%= listing.image %>" 
-              class="form-control custom-greenish-bg"
+              class="form-control border-shadow-green"
               required
             />
           </div>
@@ -31,8 +31,7 @@
             <textarea
               name="listing[description]"
               placeholder="Enter Description"
-              class="form-control custom-greenish-bg"
-              style="resize: none !important"
+              class="form-control border-shadow-green resize-none"
               required
             ><%= listing.description %></textarea>
           </div>
@@ -45,7 +44,7 @@
                 type="text"
                 name="listing[price]"
                 value="<%= listing.price %>"
-                class="form-control custom-greenish-bg"
+                class="form-control border-shadow-green"
                 required
               />
             </div>
@@ -57,7 +56,7 @@
                 type="text"
                 name="listing[location]"
                 value="<%= listing.location %>"
-                class="form-control custom-greenish-bg"
+                class="form-control border-shadow-green"
                 required
               />
             </div>
@@ -68,7 +67,7 @@
               type="text"
               name="listing[country]"
               value="<%= listing.country %>"
-              class="form-control custom-greenish-bg"
+              class="form-control border-shadow-green"
               required
             />
           </div>
