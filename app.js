@@ -4,13 +4,14 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const ExpressError = require("./utils/ExpressError");
 
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const listingsRouter = require("./routes/listings");
-const ExpressError = require("./utils/ExpressError");
+const reviewRouter = require("./routes/reviews");
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(cookieParser());
 
 app.use("/", indexRouter);
 app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewRouter);
 
 app.use("*", function (req, res, next) {
   next(new ExpressError(404, "Page not found."));

@@ -32,12 +32,11 @@ body{
 }
 
 
-.f-info-links a{
+.underline-none{
   text-decoration: none;
-  color: white;
-  margin-right: 0.5rem;
+  color: black;
 }
-.f-info-links a:hover{
+.underline-none:hover{
   text-decoration: underline;
 }
 

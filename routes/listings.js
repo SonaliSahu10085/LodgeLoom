@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listings");
-const Review = require("../models/reviews");
 const wrapAsync = require("../utils/wrapAsync");
-
-const {validateListing, validateReview} = require("../utils/serverValidation");
+const { validateListing } = require("../utils/serverValidation");
 
 /* Index Route */
 router.get(
@@ -72,32 +70,6 @@ router.get(
     const { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("Listings/edit", { listing });
-  })
-);
-
-/* Post Review Route */
-router.post(
-  "/:id/reviews",
-  validateReview,
-  wrapAsync(async (req, res, next) => {
-    const { id } = req.params;
-    const newReview = new Review(req.body.review);
-    const listing = await Listing.findById(id);
-    listing.reviews.push(newReview);
-    await newReview.save();
-    await listing.save();
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-/* Delete Review Route */
-router.delete(
-  "/:id/reviews/:review_id",
-  wrapAsync(async (req, res, next) => {
-    const { id, review_id } = req.params;
-    await Listing.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
-    await Review.findByIdAndDelete(review_id); 
-    res.redirect(`/listings/${id}`);
   })
 );
 
