@@ -1,19 +1,19 @@
 const createError = require("http-errors");
 const express = require("express");
+const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
-
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
+const session = require("express-session");
+const flash = require('connect-flash');
 
 const indexRouter = require("./routes/index");
 const listingsRouter = require("./routes/listings");
 const reviewRouter = require("./routes/reviews");
 
-const app = express();
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,8 +32,29 @@ app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(logger("dev"));
-app.use(cookieParser());
+// app.use(logger("dev"));
+// app.use(cookieParser());
+
+const sessionOptions = {
+  secret: "mysupersecretkey",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 60 * 1000,
+    maxAge: 60 * 1000,
+    httpOnly: true,
+  },
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+//handling flash msgs middleware
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash("error");
+  next();
+})
 
 app.use("/", indexRouter);
 app.use("/listings", listingsRouter);
