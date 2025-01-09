@@ -7,13 +7,14 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
-const flash = require('connect-flash');
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/users.js");
 
-const indexRouter = require("./routes/index");
+const userRouter = require("./routes/users");
 const listingsRouter = require("./routes/listings");
 const reviewRouter = require("./routes/reviews");
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -49,14 +50,21 @@ const sessionOptions = {
 app.use(session(sessionOptions));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //handling flash msgs middleware
 app.use((req, res, next) => {
-  res.locals.success = req.flash('success');
+  res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
-})
+});
 
-app.use("/", indexRouter);
+app.use("/", userRouter);
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 

@@ -62,9 +62,13 @@ body{
 /* to target input field border focus */
 .border-shadow-green:focus {
   border-color: rgb(28, 148, 147) !important;    /* greensish border */
-  box-shadow: 0 0 0 0.25rem rgb(28, 148, 147, 0.35) !important; /* Yellow focus shadow */
+  box-shadow: 0 0 0 0.25rem rgb(28, 148, 147, 0.35) !important; /* greenish focus shadow */
 }
 
+.border-shadow-black:focus{
+  border-color: rgb(8, 12, 12) !important;    
+  box-shadow: 0 0 0 0.25rem rgba(26, 27, 27, 0.35) !important; 
+}
 .border-none{
   border: none !important;
 }

@@ -1,0 +1,24 @@
+<%- layout('/layouts/boilerplate') -%>
+<body>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2 col-md-6 offset-md-3 col-12 mb-4">
+            <h3 class="text-center">Login on BookMyStay</h3>
+            <form action="/login" method="post" novalidate class="needs-validation">
+                <div class="mb-4">
+                    <label class="form-label fw-medium" for="username">Username</label>
+                    <input class="form-control border-shadow-black" type="text" name="username" id="username" required>
+                    <div class="invalid-feedback">Please provide your username.</div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-medium" for="password">Password</label>
+                    <input class="form-control border-shadow-black" type="password" name="password" id="password" required>
+                    <div class="invalid-feedback">Please provide your password.</div>
+                </div>
+                <button type="submit" class="btn btn-dark col-12">Log In</button>
+                
+            </form>
+            <hr>
+            <h5 class="text-center"><a href="/signup" >Create Account</a></h5>
+        </div>
+    </div>
+</body>
