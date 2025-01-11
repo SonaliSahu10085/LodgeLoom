@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { data } = require("./data.js");
+let { data } = require("./data.js");
 const Listing = require("../models/listings.js");
 
 const DB_NAME = "bookmystay";
@@ -15,6 +15,7 @@ async function main() {
 
 async function init() {
   await Listing.deleteMany({});
+  data = data.map((obj)=>({...obj, owner: '677fe13e51f8d9512ce0b81e'}))
   await Listing.insertMany(data);
   console.log("Database Initialized..");
 }

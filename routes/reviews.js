@@ -4,14 +4,17 @@ const Listing = require("../models/listings");
 const Review = require("../models/reviews");
 const wrapAsync = require("../utils/wrapAsync");
 const { validateReview } = require("../utils/serverValidation");
+const { isLoggedIn, isReviewAuthor } = require("../utils/middleware");
 
 /* Create Review Route */
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   wrapAsync(async (req, res, next) => {
     const { id } = req.params;
     const newReview = new Review(req.body.review);
+    newReview.author = req.user._id;
     const listing = await Listing.findById(id);
     listing.reviews.push(newReview);
     await newReview.save();
@@ -24,6 +27,7 @@ router.post(
 /* Delete Review Route */
 router.delete(
   "/:review_id",
+  isReviewAuthor,
   wrapAsync(async (req, res, next) => {
     const { id, review_id } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
