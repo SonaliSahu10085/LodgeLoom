@@ -4,7 +4,7 @@
     <!-- offset to make form center -->
     <div class="col-lg-8 offset-lg-2 col-md-6 offset-md-3 col-12 mb-4">
       <h3 class="text-center">Create New Listing</h3>
-      <form method="POST" action="/listings" class="needs-validation" novalidate>
+      <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
         <div class="mb-4">
           <label for="" class="form-label fw-medium">Title</label>
           <input
@@ -18,11 +18,10 @@
           <div class="invalid-feedback">Please enter a title.</div>
         </div>
         <div class="mb-4">
-          <label for="image" class="form-label fw-medium">Image</label>
+          <label for="image" class="form-label fw-medium">Upload Image</label>
           <input
-            type="text"
+            type="file"
             name="listing[image]"
-            placeholder="Enter Image URL/Link"
             class="form-control border-shadow-green"
           />
         </div>

@@ -4,6 +4,9 @@ const Listing = require("../models/listings");
 const wrapAsync = require("../utils/wrapAsync");
 const { validateListing } = require("../utils/serverValidation");
 const { isLoggedIn, isOwner } = require("../utils/middleware");
+const multer = require("multer");
+const { storage } = require("../cloudConfig");
+const upload = multer({ storage });
 
 /* Index Route */
 router.get(
@@ -18,10 +21,13 @@ router.get(
 router.post(
   "/",
   isLoggedIn,
+  upload.single("listing[image]"),
   validateListing,
   wrapAsync(async (req, res, next) => {
+    const { path: url, filename } = req.file;
     const listing = new Listing(req.body.listing);
     listing.owner = req.user._id;
+    listing.image = { filename, url };
     await listing.save();
     req.flash("success", "Listing created!");
     res.redirect("/listings");

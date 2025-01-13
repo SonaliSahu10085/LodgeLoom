@@ -9,9 +9,8 @@ const listingSchema = new Schema({
   },
   description: String,
   image: {
-    type: String,
-    default: "https://img.freepik.com/free-photo/3d-render-house-countryside_1048-13116.jpg?ga=GA1.1.1831672475.1736491003&semt=ais_hybrid",
-    set: (imageLink) => (imageLink ? imageLink : "https://img.freepik.com/free-photo/3d-render-house-countryside_1048-13116.jpg?ga=GA1.1.1831672475.1736491003&semt=ais_hybrid"),
+    filename: String,
+    url: String,
   },
   price: Number,
   location: String,
@@ -24,8 +23,8 @@ const listingSchema = new Schema({
   ],
   owner: {
     type: Schema.Types.ObjectId,
-    ref: "User"
-  }
+    ref: "User",
+  },
 });
 
 //Mongoose Post Middleware
