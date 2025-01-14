@@ -88,3 +88,29 @@ body{
 .border-green:hover{
   background-color: rgb(28, 148, 147) !important;
 }
+
+
+@media (max-width: 991px) {
+  .w-md-36 {
+    max-width: 75rem; /* Adjust width for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .w-md-36 {
+    max-width: 55rem; /* Adjust width for tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .w-md-36 {
+    max-width: 50rem; /* Adjust width for phones */
+  }
+}
+
+@media (min-width: 992px) {
+  .w-md-36 {
+    min-width: 23rem;
+    max-width: 75rem; /* Adjust width for tablets */
+  }
+}

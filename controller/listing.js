@@ -1,8 +1,13 @@
 const Listing = require("../models/listings");
 
 module.exports.allListing = async (req, res, next) => {
-  const listings = await Listing.find();
-  res.render("Listings/index", { listings });
+  let listings = await Listing.find();
+  res.locals.searchQuery = req.query.country ? req.query.country.trim() : "";
+  if (!req.query.country) {
+    return res.render("Listings/index", { listings});
+  }
+  listings = listings.filter((listing) => (listing.country.toLowerCase() === res.locals.searchQuery.toLowerCase()));
+  res.render("Listings/index", { listings});
 };
 
 module.exports.createListing = async (req, res, next) => {
@@ -43,8 +48,8 @@ module.exports.updateListing = async (req, res, next) => {
     listing.image = {
       filename,
       url,
-    }
-    await listing.save()
+    };
+    await listing.save();
   }
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
