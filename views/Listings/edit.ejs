@@ -1,84 +1,91 @@
 <%- layout('/layouts/boilerplate') -%>
-  <body>
-    <div class="row">
-      <!-- offset to make form center -->
-      <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 mb-4">
-        <h3 class="text-center">Edit Listing</h3>
-        <!-- validation check -->
-        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
+<body>
+  <div class="row">
+    <!-- offset to make form center -->
+    <div class="col-lg-8 offset-lg-2 col-md-6 offset-md-3 col-12 mb-4">
+      <h3 class="text-center">Edit Listing</h3>
+      <!-- validation check -->
+      <form
+        method="POST"
+        action="/listings/<%= listing._id %>?_method=PUT"
+        class="needs-validation"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <div class="mb-4">
+          <label for="" class="form-label fw-medium">Title</label>
+          <input
+            type="text"
+            name="listing[title]"
+            value="<%= listing.title %>"
+            class="form-control border-shadow-green"
+            required
+          />
+        </div>
           <div class="mb-4">
-            <label for="" class="form-label fw-medium">Title</label>
-            <input
-              type="text"
-              name="listing[title]"
-              value="<%= listing.title %>"
-              class="form-control border-shadow-green"
-              required
-            />
+            <label for="review-image" class="form-label fw-medium">Original Image</label>
+            <br />
+            <img src="<%= listing.image.url %>" alt="" class="col-12 border border-1 border-light-subtle rounded-2 img-h-20r"/>
           </div>
-          <div class="mb-4">
-            <label for="image" class="form-label fw-medium">Image</label>
-            <input
-              type="text"
-              name="listing[image]"
-              value="<%= listing.image %>" 
-              class="form-control border-shadow-green"
-              required
-            />
-          </div>
-          <div class="mb-4">
-            <label for="description" class="form-label fw-medium">Description</label>
-            <textarea
-              name="listing[description]"
-              placeholder="Enter Description"
-              class="form-control border-shadow-green resize-none"
-              required
-            ><%= listing.description %></textarea>
-          </div>
-          
-          <div class="row">
-            <!-- for md or above md 4:8 ratio -->
-            <div class="mb-4 col-md-4">
-              <label for="price" class="form-label fw-medium">Price</label>
-              <input
-                type="text"
-                name="listing[price]"
-                value="<%= listing.price %>"
-                class="form-control border-shadow-green"
-                required
-              />
-            </div>
-            
-            <div class="mb-4 col-md-8
-            ">
-              <label for="location" class="form-label fw-medium">Location</label>
-              <input
-                type="text"
-                name="listing[location]"
-                value="<%= listing.location %>"
-                class="form-control border-shadow-green"
-                required
-              />
-            </div>
-          </div>
-          <div class="mb-4">
-            <label for="country" class="form-label fw-medium">Country</label>
-            <input
-              type="text"
-              name="listing[country]"
-              value="<%= listing.country %>"
-              class="form-control border-shadow-green"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn btn-dark green-btn"
+        <div class="mb-4">
+          <label for="image" class="form-label fw-medium">Upload Image</label>
+          <input
+            type="file"
+            name="listing[image]"
+            value="<%= listing.image %>"
+            class="form-control border-shadow-green"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="description" class="form-label fw-medium"
+            >Description</label
           >
-            Edit
-          </button>
-        </form>
-      </div>
-    </div>
-  </body>
+          <textarea
+            name="listing[description]"
+            placeholder="Enter Description"
+            class="form-control border-shadow-green resize-none"
+            required
+          >
+<%= listing.description %></textarea
+          >
+        </div>
 
+        <div class="row">
+          <!-- for md or above md 4:8 ratio -->
+          <div class="mb-4 col-md-4">
+            <label for="price" class="form-label fw-medium">Price</label>
+            <input
+              type="text"
+              name="listing[price]"
+              value="<%= listing.price %>"
+              class="form-control border-shadow-green"
+              required
+            />
+          </div>
+
+          <div class="mb-4 col-md-8">
+            <label for="location" class="form-label fw-medium">Location</label>
+            <input
+              type="text"
+              name="listing[location]"
+              value="<%= listing.location %>"
+              class="form-control border-shadow-green"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="country" class="form-label fw-medium">Country</label>
+          <input
+            type="text"
+            name="listing[country]"
+            value="<%= listing.country %>"
+            class="form-control border-shadow-green"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-dark green-btn">Edit</button>
+      </form>
+    </div>
+  </div>
+</body>
