@@ -3,10 +3,10 @@
   style="height: 5rem"
 >
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="/">
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
       <img
         src="/images/logo.png"
-        alt="BookMyStay Logo"
+        alt="lodgeloom Logo"
         class="me-2"
         style="height: 60px; width: 100px"
       />
@@ -26,13 +26,13 @@
     <div class="collapse navbar-collapse bg-sm-light bg-white" id="navbarNav">
       <ul class="navbar-nav ms-auto fw-medium">
         <li class="nav-item">
-        <form method="get" action="/listings" class="d-flex" role="search" >
-          <input class="form-control rounded-2 w-md-36 me-2 border-shadow-green fs-6 fw-medium" type="search" placeholder="Search Country" aria-label="Search" name="country" value="<%= searchQuery %>">
+        <form method="get" action="/" class="d-flex" role="search" >
+          <input class="form-control rounded-2 w-md-36 me-2 border-shadow-green fs-6 fw-medium" type="search" placeholder="Search country" aria-label="Search" name="country" value="<%= searchQuery %>">
           <button class="btn btn-success green-btn rounded-2 me-lg-2" type="submit"><i class="fa-solid fa-magnifying-glass me-1 d-none d-sm-none d-md-none d-lg-inline"></i>Search</button>
         </form>
       </li>
         <li class="nav-item">
-          <a class="nav-link" href="/listings">Home</a>
+          <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/listings/new">Add your listing</a>

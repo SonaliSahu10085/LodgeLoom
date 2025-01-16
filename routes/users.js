@@ -6,15 +6,14 @@ const { validateSignupUser } = require("../utils/serverValidation");
 const { saveRedirectUrl } = require("../utils/middleware");
 const userController = require("../controller/user");
 const passport = require("passport");
+const listingController = require("../controller/listing");
 
+/* Index Route */
+router.get("/", wrapAsync(listingController.allListing));
 /* Get Signup Page */
 router.get("/signup", userController.renderSignupForm);
 
-router.post(
-  "/signup",
-  validateSignupUser,
-  wrapAsync(userController.signup)
-);
+router.post("/signup", validateSignupUser, wrapAsync(userController.signup));
 
 /* Get Login Page */
 router.get("/login", userController.renderLoginForm);
