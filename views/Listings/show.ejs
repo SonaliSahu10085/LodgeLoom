@@ -1,5 +1,12 @@
 <%- layout('/layouts/boilerplate') -%>
-
+<script>
+  const coordinates = <%- JSON.stringify(listing.geometery.coordinates) %>;
+</script>
+<style>
+  #map {
+    height: 20rem;
+  }
+</style>
 <body>
   <div class="row">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
@@ -60,16 +67,49 @@
         <div>
           <label class="form-label fw-medium" for="rating">Rating</label>
           <fieldset class="starability-grow">
-            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[rating]"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input
+              type="radio"
+              id="first-rate1"
+              name="review[rating]"
+              value="1"
+            />
             <label for="first-rate1" title="Terrible">1 star</label>
-            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <input
+              type="radio"
+              id="first-rate2"
+              name="review[rating]"
+              value="2"
+            />
             <label for="first-rate2" title="Not good">2 stars</label>
-            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <input
+              type="radio"
+              id="first-rate3"
+              name="review[rating]"
+              value="3"
+            />
             <label for="first-rate3" title="Average">3 stars</label>
-            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <input
+              type="radio"
+              id="first-rate4"
+              name="review[rating]"
+              value="4"
+            />
             <label for="first-rate4" title="Very good">4 stars</label>
-            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <input
+              type="radio"
+              id="first-rate5"
+              name="review[rating]"
+              value="5"
+            />
             <label for="first-rate5" title="Amazing">5 stars</label>
           </fieldset>
         </div>
@@ -103,7 +143,10 @@
         <div class="card col border-none">
           <div class="card-body my-2 bg-light border border-light-subtle">
             <h5 class="card-title"><%= review.author.username %></h5>
-            <p class="card-subtitle mb-2 starability-result" data-rating="<%= review.rating %>"></p>
+            <p
+              class="card-subtitle mb-2 starability-result"
+              data-rating="<%= review.rating %>"
+            ></p>
             <p class="card-text"><%= review.comment %></p>
             <% if(currUser && currUser._id.equals(review.author._id)){ %>
             <form
@@ -121,5 +164,12 @@
       </div>
     </div>
     <% } %>
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 mb-4">
+      <hr />
+      <p class="fs-5 fw-bold">Where you’ll be</p>
+      <div id="map" class="rounded-2"></div>
+    </div>
   </div>
 </body>
+
+<script src="/javascripts/map.js"></script>

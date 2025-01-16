@@ -1,13 +1,17 @@
+const axios = require("axios");
 const Listing = require("../models/listings");
 
 module.exports.allListing = async (req, res, next) => {
   let listings = await Listing.find();
   res.locals.searchQuery = req.query.country ? req.query.country.trim() : "";
   if (!req.query.country) {
-    return res.render("Listings/index", { listings});
+    return res.render("Listings/index", { listings });
   }
-  listings = listings.filter((listing) => (listing.country.toLowerCase() === res.locals.searchQuery.toLowerCase()));
-  res.render("Listings/index", { listings});
+  listings = listings.filter(
+    (listing) =>
+      listing.country.toLowerCase() === res.locals.searchQuery.toLowerCase()
+  );
+  res.render("Listings/index", { listings });
 };
 
 module.exports.createListing = async (req, res, next) => {
@@ -15,6 +19,12 @@ module.exports.createListing = async (req, res, next) => {
   const listing = new Listing(req.body.listing);
   listing.owner = req.user._id;
   listing.image = { filename, url };
+  const query = listing.location.trim();
+  const {data} = await axios.get(
+    `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson`
+  );
+
+  listing.geometery = data.features[0].geometry;
   await listing.save();
   req.flash("success", "Listing created!");
   res.redirect("/listings");
@@ -35,7 +45,7 @@ module.exports.showListing = async (req, res, next) => {
     res.redirect("/listings");
     return;
   }
-  res.render("Listings/show", { listing });
+  res.render("Listings/show", { listing});
 };
 
 module.exports.updateListing = async (req, res, next) => {

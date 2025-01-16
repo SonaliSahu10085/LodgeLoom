@@ -1,6 +1,7 @@
 <%- layout('/layouts/boilerplate') -%>
   <body>
-    <h1>All Listings</h1>
+    <h3 class="fw-semibold text-dark-emphasis">All Listings</h3>
+    <hr>
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1">
       <% for(let listing of listings){ %>
         <a href="/listings/<%= listing._id %>" style="text-decoration: none;" class="f-card">
