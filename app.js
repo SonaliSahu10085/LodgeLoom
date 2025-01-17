@@ -24,7 +24,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
 (async function () {
-  await mongoose.connect(process.env.MONGOATLASURL);
+  await mongoose.connect(process.env.MONGO_ATLAS_URL);
   // await mongoose.connect("mongodb://127.0.0.1:27017/bookmystay");
 })()
   .then(() => console.log("Db connection successful"))
@@ -40,13 +40,13 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use(cookieParser());
 
 const MongoStoreOptions = {
-  mongoUrl: process.env.MONGOATLASURL,
+  mongoUrl: process.env.MONGO_ATLAS_URL,
   crypto: {
-    secret: process.env.SESSIONSECRET,
+    secret: process.env.SESSION_SECRET,
   }
 };
 const sessionOptions = {
-  secret: process.env.SESSIONSECRET,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
