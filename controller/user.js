@@ -19,7 +19,7 @@ module.exports.signup = async function (req, res, next) {
         return next(err);
       }
       req.flash("success", `Hi ${username}! Welcome back to BookMyStay!`);
-      res.redirect("/listings");
+      res.redirect("/");
     });
   } catch (e) {
     req.flash("error", `${e.message}.`);
@@ -34,7 +34,7 @@ module.exports.renderLoginForm = (req, res) => {
 module.exports.afterAuthentication = async function (req, res) {
   console.log(req.user);
   req.flash("success", `Hi ${req.user.username}! Welcome back to BookMyStay!`);
-  let redirectUrl = res.locals.redirectUrl || "/listings";
+  let redirectUrl = res.locals.redirectUrl || "/";
   res.redirect(redirectUrl);
 };
 
@@ -44,6 +44,6 @@ module.exports.logout = (req, res, next) => {
       return next(err);
     }
     req.flash("success", "you are logged out!");
-    res.redirect("/listings");
+    res.redirect("/");
   });
 };
