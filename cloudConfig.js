@@ -11,7 +11,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "BookMyStay_DEV_Phase",
+    folder: "LodgeLoom",
     allowedFormats: ["webp", "png", "jpeg", "jpg"],
   },
 });
