@@ -19,9 +19,9 @@
         />
         <div class="card-body p-0">
           <p class="card-text mb-2 lh-lg text-body-secondary">
-            <span class="italianno-regular text-dark-emphasis">
+            <span class="text-dark fst-italic fw-semibold">
               Owned by
-              <span>@<%= listing.owner.username %></span
+              <span class="">@<%= listing.owner.username %></span
               >
             </span>
             <br />
@@ -56,7 +56,7 @@
     <% if(currUser){ %>
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
       <hr />
-      <h4>Leave a Review</h4>
+      <p class="fs-5 fw-bold text-dark-emphasis">Leave a Review</p>
       <form
         action="/listings/<%= listing._id %>/reviews"
         method="post"
@@ -64,7 +64,7 @@
         class="needs-validation"
       >
         <div>
-          <label class="form-label fw-medium" for="rating">Rating</label>
+          <label class="form-label fw-medium text-dark-emphasis" for="rating">Rating</label>
           <fieldset class="starability-grow">
             <input
               type="radio"
@@ -113,7 +113,7 @@
           </fieldset>
         </div>
         <div class="mb-4">
-          <label class="form-label fw-medium" for="comment">Comment</label>
+          <label class="form-label fw-medium text-dark-emphasis" for="comment">Comment</label>
           <textarea
             class="form-control resize-none border-shadow-green"
             type="text"
@@ -136,12 +136,12 @@
     <% } %> <% if(listing.reviews.length){ %>
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 mb-4">
       <hr />
-      <h4>All Reviews</h4>
+      <p class="fs-5 fw-bold text-dark-emphasis">All Reviews</p>
       <div class="row row-cols-md-2 row-cols-1">
         <% for(let review of listing.reviews){ %>
         <div class="card col border-none">
           <div class="card-body my-2 bg-light border border-light-subtle">
-            <h5 class="card-title"><%= review.author.username %></h5>
+            <p class="card-title fw-semibold fs-5"><%= review.author.username %></p>
             <p
               class="card-subtitle mb-2 starability-result"
               data-rating="<%= review.rating %>"
