@@ -74,16 +74,7 @@
             />
           </div>
         </div>
-        <div class="mb-4">
-          <label for="country" class="form-label fw-medium">Country</label>
-          <input
-            type="text"
-            name="listing[country]"
-            value="<%= listing.country %>"
-            class="form-control border-shadow-green"
-            required
-          />
-        </div>
+        <%- include('../includes/country.ejs') -%>
         <button type="submit" class="btn btn-dark green-btn">Edit</button>
       </form>
     </div>
