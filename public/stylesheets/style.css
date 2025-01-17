@@ -114,3 +114,9 @@ body{
     max-width: 75rem; /* Adjust width for tablets */
   }
 }
+
+.italianno-regular {
+  font-family: "Italianno", serif;
+  font-weight: 700;
+  font-size: 30px;
+}

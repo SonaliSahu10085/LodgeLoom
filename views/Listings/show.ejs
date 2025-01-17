@@ -10,7 +10,7 @@
 <body>
   <div class="row">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <h3 class="text-center"><%= listing.title %></h3>
+      <h3 class="text-center text-dark-emphasis fw-semibold"><%= listing.title %></h3>
       <div class="card border-none my-4">
         <img
           src="<%= listing.image.url %>"
@@ -18,23 +18,22 @@
           alt="<%= listing.title %>"
         />
         <div class="card-body p-0">
-          <p class="card-text pt-2 mb-2">
-            <span>
+          <p class="card-text mb-2 lh-lg text-body-secondary">
+            <span class="italianno-regular text-dark-emphasis">
               Owned by
-              <span class="fw-semibold fst-italic"
-                ><%= listing.owner.username %></span
+              <span>@<%= listing.owner.username %></span
               >
             </span>
             <br />
-            <span class="fw-medium">
+            <span class="fw-semibold">
               &#8377;<%=listing.price.toLocaleString('en-IN') %>/night
             </span>
             <br />
-            <span> <%= listing.description %> </span>
+            <span class="fw-medium"> <%= listing.description %> </span>
             <br />
-            <span class="fw-medium"> <%= listing.location %> </span>
+            <span class="fw-semibold text-body-secondary"> <%= listing.location %> </span>
             <br />
-            <span class="fw-semibold"> <%= listing.country %> </span>
+            <span class="fw-semibold text-body-secondary"> <%= listing.country %> </span>
           </p>
         </div>
         <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
@@ -166,7 +165,7 @@
     <% } %>
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12 mb-4">
       <hr />
-      <p class="fs-5 fw-bold">Where you’ll be</p>
+      <p class="fs-5 fw-bold text-dark-emphasis">Where you’ll be</p>
       <div id="map" class="rounded-2"></div>
     </div>
   </div>
