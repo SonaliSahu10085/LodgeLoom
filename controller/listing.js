@@ -27,7 +27,7 @@ module.exports.createListing = async (req, res, next) => {
   listing.geometery = data.features[0].geometry;
   await listing.save();
   req.flash("success", "Listing created!");
-  res.redirect("/listings");
+  res.redirect("/");
 };
 
 module.exports.renderNewForm = (req, res, next) => {
@@ -42,7 +42,7 @@ module.exports.showListing = async (req, res, next) => {
   // console.log(listing.reviews);
   if (!listing) {
     req.flash("error", "Listing doesn't exist!");
-    res.redirect("/listings");
+    res.redirect("/");
     return;
   }
   res.render("Listings/show", { listing});
@@ -69,7 +69,7 @@ module.exports.destroyListing = async (req, res, next) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Listing Deleted!");
-  res.redirect("/listings");
+  res.redirect("/");
 };
 
 module.exports.renderEditForm = async (req, res, next) => {
@@ -77,7 +77,7 @@ module.exports.renderEditForm = async (req, res, next) => {
   const listing = await Listing.findById(id);
   if (!listing) {
     req.flash("error", "Listing doesn't exist!");
-    res.redirect("/listings");
+    res.redirect("/");
     return;
   }
   res.render("Listings/edit", { listing });

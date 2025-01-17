@@ -1,3 +1,4 @@
+require("dotenv/config");
 const createError = require("http-errors");
 const express = require("express");
 const app = express();
@@ -7,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -22,7 +24,8 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
 (async function () {
-  await mongoose.connect("mongodb://127.0.0.1:27017/bookmystay");
+  await mongoose.connect(process.env.MONGOATLASURL);
+  // await mongoose.connect("mongodb://127.0.0.1:27017/bookmystay");
 })()
   .then(() => console.log("Db connection successful"))
   .catch((err) => console.log("Db not connected."));
@@ -36,15 +39,22 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use(logger("dev"));
 // app.use(cookieParser());
 
+const MongoStoreOptions = {
+  mongoUrl: process.env.MONGOATLASURL,
+  crypto: {
+    secret: process.env.SESSIONSECRET,
+  }
+};
 const sessionOptions = {
-  secret: "mysupersecretkey",
+  secret: process.env.SESSIONSECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
-    expires: Date.now() + 60 * 1000,
-    maxAge: 60 * 1000,
+    expires: Date.now() + 14 * 24 * 60 * 60 * 1000,
+    maxAge: 14 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   },
+  store: MongoStore.create(MongoStoreOptions),
 };
 
 app.use(session(sessionOptions));
@@ -62,7 +72,7 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
-  res.locals.searchQuery = ""
+  res.locals.searchQuery = "";
   next();
 });
 
