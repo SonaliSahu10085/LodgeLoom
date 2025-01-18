@@ -1,9 +1,11 @@
-{
-  "name": "bookmystay",
+{ "engines": {
+  "node": "v18.12.1"
+},
+  "name": "lodgeloom",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./app.js"
   },
   "dependencies": {
     "axios": "^1.7.9",

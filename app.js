@@ -1,4 +1,3 @@
-const createError = require("http-errors");
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -15,6 +14,10 @@ const User = require("./models/users.js");
 const userRouter = require("./routes/users");
 const listingsRouter = require("./routes/listings");
 const reviewRouter = require("./routes/reviews");
+
+app.listen(3000, () => {
+  console.log("Server listening on port 3000");
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -62,7 +65,12 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
-  res.locals.searchQuery = ""
+  res.locals.searchQuery = "";
+  next();
+});
+
+app.use((req, res, next) => {
+  console.log(req.method, req.originalUrl);
   next();
 });
 
@@ -74,26 +82,8 @@ app.use("*", function (req, res, next) {
   next(new ExpressError(404, "Page not found."));
 });
 
-// // // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
-
 //Error handling middleware
 app.use(function (err, req, res, next) {
   const { statusCode = 500, message = "Server error" } = err;
   res.status(statusCode).render("error", { message });
 });
-
-// // error handler
-// app.use(function (err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render("error");
-// });
-
-module.exports = app;
