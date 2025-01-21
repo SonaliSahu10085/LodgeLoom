@@ -20,7 +20,7 @@ module.exports.createListing = async (req, res, next) => {
   listing.owner = req.user._id;
   listing.image = { filename, url };
   const query = listing.location.trim();
-  const {data} = await axios.get(
+  const { data } = await axios.get(
     `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson`
   );
 
@@ -45,22 +45,29 @@ module.exports.showListing = async (req, res, next) => {
     res.redirect("/");
     return;
   }
-  res.render("Listings/show", { listing});
+  res.render("Listings/show", { listing });
 };
 
 module.exports.updateListing = async (req, res, next) => {
   const { id } = req.params;
   const listing = await Listing.findByIdAndUpdate(id, {
     ...req.body.listing,
-  });
+  }, {new : true});
   if (typeof req.file !== "undefined") {
     const { filename, path: url } = req.file;
     listing.image = {
       filename,
       url,
     };
-    await listing.save();
   }
+
+  const query = listing.location.trim();
+  const { data } = await axios.get(
+    `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson`
+  );
+
+  listing.geometery = data.features[0].geometry;
+  await listing.save();
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
 };

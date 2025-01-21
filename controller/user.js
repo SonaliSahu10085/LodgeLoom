@@ -18,7 +18,7 @@ module.exports.signup = async function (req, res, next) {
       if (err) {
         return next(err);
       }
-      req.flash("success", `Hi ${username}! Welcome back to BookMyStay!`);
+      req.flash("success", `Hi ${username}! Welcome back to LodgeLoom!`);
       res.redirect("/");
     });
   } catch (e) {
@@ -33,7 +33,7 @@ module.exports.renderLoginForm = (req, res) => {
 
 module.exports.afterAuthentication = async function (req, res) {
   console.log(req.user);
-  req.flash("success", `Hi ${req.user.username}! Welcome back to BookMyStay!`);
+  req.flash("success", `Hi ${req.user.username}! Welcome back to LodgeLoom!`);
   let redirectUrl = res.locals.redirectUrl || "/";
   res.redirect(redirectUrl);
 };
