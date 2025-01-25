@@ -11,6 +11,10 @@ module.exports.allListing = async (req, res, next) => {
     (listing) =>
       listing.country.toLowerCase() === res.locals.searchQuery.toLowerCase()
   );
+  if (!listings.length) {
+    req.flash("error", "Listings not found!");
+    return res.redirect("/");
+  }
   res.render("Listings/index", { listings });
 };
 
@@ -50,9 +54,24 @@ module.exports.showListing = async (req, res, next) => {
 
 module.exports.updateListing = async (req, res, next) => {
   const { id } = req.params;
-  const listing = await Listing.findByIdAndUpdate(id, {
-    ...req.body.listing,
-  }, {new : true});
+  const listingBody = req.body.listing;
+  const query = `${listingBody.location.trim()}, ${listingBody.country.trim()}`;
+  const { data } = await axios.get(
+    `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson`
+  );
+  if (!data.features.length) {
+    req.flash("error", "Invalid location!");
+    return res.redirect(`/listings/${id}`);
+  }
+  
+  const listing = await Listing.findByIdAndUpdate(
+    id,
+    {
+      ...req.body.listing,
+    },
+    { new: true }
+  );
+
   if (typeof req.file !== "undefined") {
     const { filename, path: url } = req.file;
     listing.image = {
@@ -60,14 +79,9 @@ module.exports.updateListing = async (req, res, next) => {
       url,
     };
   }
-
-  const query = listing.location.trim();
-  const { data } = await axios.get(
-    `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson`
-  );
-
   listing.geometery = data.features[0].geometry;
   await listing.save();
+  
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
 };
