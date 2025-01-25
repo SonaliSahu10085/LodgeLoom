@@ -20,13 +20,18 @@ module.exports.allListing = async (req, res, next) => {
 
 module.exports.createListing = async (req, res, next) => {
   const { path: url, filename } = req.file;
-  const listing = new Listing(req.body.listing);
-  listing.owner = req.user._id;
-  listing.image = { filename, url };
-  const query = listing.location.trim();
+  const listingBody = req.body.listing;
+  const query = `${listingBody.location.trim()}, ${listingBody.country.trim()}`;
   const { data } = await axios.get(
     `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson`
   );
+  if (!data.features.length) {
+    req.flash("error", "Invalid location!");
+    return res.redirect(`/listings/new`);
+  }
+  const listing = new Listing(listingBody);
+  listing.owner = req.user._id;
+  listing.image = { filename, url };
 
   listing.geometery = data.features[0].geometry;
   await listing.save();
@@ -63,11 +68,11 @@ module.exports.updateListing = async (req, res, next) => {
     req.flash("error", "Invalid location!");
     return res.redirect(`/listings/${id}`);
   }
-  
+
   const listing = await Listing.findByIdAndUpdate(
     id,
     {
-      ...req.body.listing,
+      ...listingBody,
     },
     { new: true }
   );
@@ -81,7 +86,7 @@ module.exports.updateListing = async (req, res, next) => {
   }
   listing.geometery = data.features[0].geometry;
   await listing.save();
-  
+
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
 };

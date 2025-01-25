@@ -1,14 +1,14 @@
 require("dotenv/config");
-const createError = require("http-errors");
 const express = require("express");
 const app = express();
 const path = require("path");
+const { execSync } = require("child_process");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -43,7 +43,7 @@ const MongoStoreOptions = {
   mongoUrl: process.env.MONGO_ATLAS_URL,
   crypto: {
     secret: process.env.SESSION_SECRET,
-  }
+  },
 };
 const sessionOptions = {
   secret: process.env.SESSION_SECRET,
@@ -73,6 +73,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
   res.locals.searchQuery = "";
+  res.locals.lastUpdated = execSync('git log -1 --format=%ci').toString().trim();
   next();
 });
 
