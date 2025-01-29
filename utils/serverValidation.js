@@ -7,7 +7,9 @@ module.exports.validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
   if (error) {
     const errMsg = error.details[0].message;
-    throw new ExpressError(400, errMsg);
+    req.flash("error", errMsg);
+    return res.status(400).redirect(`${req.originalUrl}`);
+    // throw new ExpressError(400, errMsg); 
   }
   next();
 };
