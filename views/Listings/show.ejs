@@ -1,6 +1,7 @@
 <%- layout('/layouts/boilerplate') -%>
 <script>
   const coordinates = <%- JSON.stringify(listing.geometery.coordinates) %>;
+  const mapToken = "<%= mapToken %>";
 </script>
 <style>
   #map {
@@ -10,7 +11,9 @@
 <body>
   <div class="row">
     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-      <h3 class="text-center text-dark-emphasis fw-semibold"><%= listing.title %></h3>
+      <h3 class="text-center text-dark-emphasis fw-semibold">
+        <%= listing.title %>
+      </h3>
       <div class="card border-none my-4">
         <img
           src="<%= listing.image.url %>"
@@ -21,8 +24,7 @@
           <p class="card-text mb-2 lh-lg text-body-secondary">
             <span class="text-dark fst-italic fw-semibold">
               Owned by
-              <span class="">@<%= listing.owner.username %></span
-              >
+              <span class="">@<%= listing.owner.username %></span>
             </span>
             <br />
             <span class="fw-semibold">
@@ -31,9 +33,13 @@
             <br />
             <span class="fw-medium"> <%= listing.description %> </span>
             <br />
-            <span class="fw-semibold text-body-secondary"> <%= listing.location %> </span>
+            <span class="fw-semibold text-body-secondary">
+              <%= listing.location %>
+            </span>
             <br />
-            <span class="fw-semibold text-body-secondary"> <%= listing.country %> </span>
+            <span class="fw-semibold text-body-secondary">
+              <%= listing.country %>
+            </span>
           </p>
         </div>
         <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
@@ -64,7 +70,9 @@
         class="needs-validation"
       >
         <div>
-          <label class="form-label fw-medium text-dark-emphasis" for="rating">Rating</label>
+          <label class="form-label fw-medium text-dark-emphasis" for="rating"
+            >Rating</label
+          >
           <fieldset class="starability-grow">
             <input
               type="radio"
@@ -113,7 +121,9 @@
           </fieldset>
         </div>
         <div class="mb-4">
-          <label class="form-label fw-medium text-dark-emphasis" for="comment">Comment</label>
+          <label class="form-label fw-medium text-dark-emphasis" for="comment"
+            >Comment</label
+          >
           <textarea
             class="form-control resize-none border-shadow-green"
             type="text"
@@ -141,7 +151,9 @@
         <% for(let review of listing.reviews){ %>
         <div class="card col border-none">
           <div class="card-body my-2 bg-light border border-light-subtle">
-            <p class="card-title fw-semibold fs-5"><%= review.author.username %></p>
+            <p class="card-title fw-semibold fs-5">
+              <%= review.author.username %>
+            </p>
             <p
               class="card-subtitle mb-2 starability-result"
               data-rating="<%= review.rating %>"

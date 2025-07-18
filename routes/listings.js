@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Listing = require("../models/listings");
 const wrapAsync = require("../utils/wrapAsync");
 const { validateListing } = require("../utils/serverValidation");
 const { isLoggedIn, isOwner } = require("../utils/middleware");
 const listingController = require("../controller/listing");
-const multer = require("multer");
-const { storage } = require("../cloudConfig");
-const upload = multer({ storage });
+// const multer = require("multer");
+// const { storage } = require("../cloudConfig");
+// const upload = multer({ storage });
+const upload = require('../middleware/upload');
 
 /* Create Route - POST /listings */
 router.post(

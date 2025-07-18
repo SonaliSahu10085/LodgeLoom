@@ -13,11 +13,14 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/users.js");
+const multer = require("multer");
 
+// Routers
 const userRouter = require("./routes/users");
 const listingsRouter = require("./routes/listings");
 const reviewRouter = require("./routes/reviews");
 
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -73,7 +76,9 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
   res.locals.searchQuery = "";
-  res.locals.lastUpdated = execSync('git log -1 --format=%ci').toString().trim();
+  res.locals.lastUpdated = "2025-01-25 16:31:08 +0530" || execSync("git log -1 --format=%ci")
+    .toString()
+    .trim();
   next();
 });
 
@@ -85,13 +90,13 @@ app.use("*", function (req, res, next) {
   next(new ExpressError(404, "Page not found."));
 });
 
-// // // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
-
 //Error handling middleware
 app.use(function (err, req, res, next) {
+  if (err instanceof multer.MulterError) {
+    if (err.code === "LIMIT_FILE_SIZE") {
+      req.flash("error", "File size exceeds 50KB limit.");
+    }
+  }
   const { statusCode = 500, message = "Server error" } = err;
   res.status(statusCode).render("error", { message });
 });

@@ -1,4 +1,5 @@
 
+
 body{
   font-family: "Plus Jakarta Sans", serif !important;
   /* font-optical-sizing: auto;
@@ -113,4 +114,11 @@ body{
     min-width: 23rem;
     max-width: 75rem; /* Adjust width for tablets */
   }
+}
+
+.home-bg{
+  background-image: url('/images/bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 !important;
 }

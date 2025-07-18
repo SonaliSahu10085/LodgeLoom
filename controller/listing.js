@@ -54,7 +54,7 @@ module.exports.showListing = async (req, res, next) => {
     res.redirect("/");
     return;
   }
-  res.render("Listings/show", { listing });
+  res.render("Listings/show.ejs", { listing, mapToken : process.env.MAP_API_TOKEN });
 };
 
 module.exports.updateListing = async (req, res, next) => {
