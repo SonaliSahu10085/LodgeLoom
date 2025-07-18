@@ -10,6 +10,11 @@ const listingController = require("../controller/listing");
 
 /* Index Route */
 router.get("/", wrapAsync(listingController.allListing));
+
+router.get("/home", async (req, res, next) => {
+  res.render('home.ejs')
+});
+
 /* Get Signup Page */
 router.get("/signup", userController.renderSignupForm);
 
